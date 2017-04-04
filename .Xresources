@@ -4,8 +4,8 @@ Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
 Xft.autohint: false
-Xft.hintstyle: hintfull
-Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+! Xft.lcdfilter: lcddefault
 
 XTerm*background: #2e3436
 XTerm*foreground: #d3d7cf
