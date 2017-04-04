@@ -16,6 +16,8 @@ alias npm="npm --registry=https://registry.npm.taobao.org \
   --disturl=https://npm.taobao.org/dist \
   --userconfig=$HOME/.npmrc"
 
+alias open='xdg-open'
+
 export EDITOR="vim"
 export VISUAL=$EDITOR
 export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:$PATH

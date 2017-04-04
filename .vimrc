@@ -20,6 +20,7 @@ set smartcase
 set expandtab
 set smarttab
 set hlsearch
+set incsearch
 set number
 set noswapfile
 set cursorline
@@ -37,7 +38,7 @@ set ttimeoutlen=0
 set clipboard=unnamed
 set clipboard^=unnamedplus
 
-:noremap / :set hlsearch<CR>/
+" :noremap / :set hlsearch<CR>/
 
 " toggle paste mode
 :noremap <F2> :set paste! nopaste?<CR>
