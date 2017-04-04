@@ -1,0 +1,88 @@
+conky.config = {
+	update_interval = 1,
+	double_buffer = true,
+	use_xft = true,
+  font = 'DejaVu Sans Mono:size=10',
+  minimum_width = 300,
+	default_color = 'gray',
+  alignment = 'top_left',
+  gap_x = 50,
+
+  own_window = true,
+  own_window_type = 'override',
+	own_window_hints = 'undecorated',
+	own_window_transparent = true,
+
+  default_outline_color = 'white',
+  default_shade_color = 'white',
+  draw_borders = false,
+  draw_graph_borders = true,
+  draw_outline = false,
+  draw_shades = false,
+
+  cpu_avg_samples = 4,
+  net_avg_samples = 4,
+
+  extra_newline = false,
+  show_graph_scale = false,
+  show_graph_range = false
+}
+
+conky.text = [[
+  ${color white}${font :bold:size=12}[SYSTEM]$font$color
+  Hostname: $alignr $nodename
+  Kernel: $alignr $kernel
+  Uptime: $alignr $uptime
+  System load: $alignr $loadavg
+  Temp: ${alignr}${acpitemp}°C
+  Frequency (in MHz):$alignr $freq
+
+  IP address: $alignr ${addr enp0s31f6}
+  Download: $alignr ${downspeed enp0s31f6}/s
+  Upload: $alignr ${upspeed enp0s31f6}/s
+  Running Processes: $alignr $running_processes/$processes
+  Running Threads: $alignr $running_threads/$threads
+
+
+  CPU Usage:$alignr $cpu%
+  ${cpubar}
+  RAM Usage: $alignr $mem/$memmax - $memperc%
+  ${membar}
+  Swap Usage:$alignr $swap/$swapmax - $swapperc%
+  ${swapbar}
+
+  / $alignr ${fs_used /} of ${fs_size /} (${fs_used_perc /}%)
+  ${fs_bar /}
+  /data $alignr ${fs_used /data} of ${fs_size /data} (${fs_used_perc /data}%)
+  ${fs_bar /data}
+  swap $alignr $swap of $swapmax ($swapperc%)
+  $swapbar
+
+  ${color white}${font :bold:size=12}[NVIDIA]$font$color
+  Nvidia Temp: $alignr ${nvidia temp}°C
+  Fan Speed $alignr ${execi 5 nvidia-settings -q [fan:0]/GPUCurrentFanSpeed -t} %
+  GPU Clock $alignr ${nvidia gpufreq} MHz
+  Mem Clock $alignr ${nvidia memfreq} MHz
+  Mem Used $alignr ${execi 5 nvidia-settings -q [gpu:0]/UsedDedicatedGPUMemory -t} / ${exec nvidia-settings -q [gpu:0]/TotalDedicatedGPUMemory -t} MiB
+
+  ]]
+
+
+
+--[[
+  ${font :bold:size=9}Name $alignc PID   $alignr RAM $font
+  ${top_mem name 1} $alignc ${top_mem pid 1} $alignr ${top_mem mem 1}%
+  ${top_mem name 2} $alignc ${top_mem pid 2} $alignr ${top_mem mem 2}%
+  ${top_mem name 3} $alignc ${top_mem pid 3} $alignr ${top_mem mem 3}%
+  ${top_mem name 4} $alignc ${top_mem pid 4} $alignr ${top_mem mem 4}%
+  ${top_mem name 5} $alignc ${top_mem pid 5} $alignr ${top_mem mem 5}%
+
+
+  ${color white}${font :bold:size=12}[MONITOR]$font$color
+  ${font :bold:size=9}Name $alignc PID   $alignr CPU $font
+  ${top name 1} $alignc ${top pid 1} $alignr ${top cpu 1}%
+  ${top name 2} $alignc ${top pid 2} $alignr ${top cpu 2}%
+  ${top name 3} $alignc ${top pid 3} $alignr ${top cpu 3}%
+  ${top name 4} $alignc ${top pid 4} $alignr ${top cpu 4}%
+  ${top name 5} $alignc ${top pid 5} $alignr ${top cpu 5}%
+--]]

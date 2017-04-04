@@ -1,0 +1,56 @@
+Config { 
+  -- appearance
+    font = "xft:WenQuanYi Micro Hei:pixelsize=14"
+  , bgColor = "black"
+  , fgColor = "#646464"
+  , position = Top
+  , border = NoBorder
+  , borderColor = "black"
+
+  -- behavior
+  , lowerOnStart = True
+  , hideOnStart = False
+  , persistent = False
+
+  -- layout
+  , sepChar = "%"
+  , alignSep = "}{"
+  , commands = 
+    [ Run StdinReader
+    , Run DynNetwork [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+                     , "--Low"      , "1000"       -- units: B/s
+                     , "--High"     , "5000"       -- units: B/s
+                     , "--low"      , "darkgreen"
+                     , "--normal"   , "darkorange"
+                     , "--high"     , "darkred"
+                     ] 10
+
+    , Run Network "ppp0" ["-L","0","-H","32","--normal","green","--high","red"] 100
+
+    , Run MultiCpu [ "--template" , "Cpu: <total>%"
+                   , "--Low"      , "50"         -- units: %
+                   , "--High"     , "85"         -- units: %
+                   , "--low"      , "darkgreen"
+                   , "--normal"   , "darkorange"
+                   , "--high"     , "darkred"
+                   ] 10
+    , Run CoreTemp [ "--template" , "Temp: <core0>°C"
+                   , "--Low"      , "70"        -- units: °C
+                   , "--High"     , "80"        -- units: °C
+                   , "--low"      , "darkgreen"
+                   , "--normal"   , "darkorange"
+                   , "--high"     , "darkred"
+                   ] 50
+    , Run Memory   [ "--template" ,"Mem: <usedratio>%"
+                   , "--Low"      , "20"        -- units: %
+                   , "--High"     , "90"        -- units: %
+                   , "--low"      , "darkgreen"
+                   , "--normal"   , "darkorange"
+                   , "--high"     , "darkred"
+                   ] 10
+    , Run Swap [] 100
+    , Run Date "%a %b %_d %Y %H:%M:%S " "date" 600
+    , Run Locks
+    ]
+  , template = "%locks% | %StdinReader% }{ %multicpu% | %coretemp% | %ppp0% | %dynnetwork% | %memory% * %swap% | <fc=#ee9a00>%date%</fc> "
+}
