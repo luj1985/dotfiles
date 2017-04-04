@@ -20,4 +20,6 @@ export EDITOR="vim"
 export VISUAL=$EDITOR
 export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:$PATH
 
+alias rm='echo "Use trash instead"; false'
+
 PS1='[\u@\h \W]\$ '
