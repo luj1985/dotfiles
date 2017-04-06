@@ -161,6 +161,9 @@ yaourt -S alsa-utils
 reboot
 
 
+# edit /etc/systemd/journald.conf
+Storage=volatile
+
 # backup
 pacman -S snapper
 snapper -c config create-config /
