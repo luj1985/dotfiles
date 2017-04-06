@@ -156,6 +156,7 @@ pacman -S yaourt
 # install X
 yaourt -S xorg-server xorg-xinit nvidia i3-wm i3statu google-chrome xterm rofi
 yaourt -S font-bitstream-speedo ttf-bitstream-vera ttf-dejavu ttf-hack
+yaourt -S alsa-utils
 
 reboot
 
@@ -164,7 +165,8 @@ reboot
 pacman -S snapper
 snapper -c config create-config /
 
-
+systemctl enable snapper-timeline.timer
+systemctl start snapper-timeline.timer
 
 
 
