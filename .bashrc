@@ -6,7 +6,6 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-#alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
 alias ll='ls -l'
 alias la='ls -la'
 
@@ -17,11 +16,13 @@ alias npm="npm --registry=https://registry.npm.taobao.org \
   --userconfig=$HOME/.npmrc"
 
 alias open='xdg-open'
+alias rm='echo "Use trash instead"; false'
 
 export EDITOR="vim"
 export VISUAL=$EDITOR
 export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:/opt/anaconda/bin:$PATH
 
-alias rm='echo "Use trash instead"; false'
+_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
 
 PS1='[\u@\h \W]\$ '
+

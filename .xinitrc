@@ -5,7 +5,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
     unset f
 fi
 
-
 xrdb -merge .Xresources
 
 export GTK_IM_MODULE=fcitx
@@ -13,5 +12,6 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
 fcitx 2> ${HOME}/logs/fcitx.stderr.log &
+compton --backend glx --config ~/.compton.conf &
 
 exec i3
