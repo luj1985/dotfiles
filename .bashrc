@@ -20,7 +20,7 @@ alias open='xdg-open'
 
 export EDITOR="vim"
 export VISUAL=$EDITOR
-export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:$PATH
+export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:/opt/anaconda/bin:$PATH
 
 alias rm='echo "Use trash instead"; false'
 

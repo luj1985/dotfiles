@@ -1,0 +1,2 @@
+# remove unsed depenencies
+pacman -Rsn $(pacman -Qdtq)
