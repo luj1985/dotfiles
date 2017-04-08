@@ -25,22 +25,10 @@ XTerm*color12: #729fcf
 XTerm*color13: #ad7fa8
 XTerm*color14: #34e2e2
 XTerm*color15: #eeeeec
-!XTerm*maximized: true
-!XTerm*fullscreen: false
 
-!XTerm*faceName: Bitstream Vera Sans Mono:style=roman
 XTerm*faceName: Hack:style=Regular
-!XTerm*faceNameDoublesize: WenQuanYi Bitmap Song:style=roman
 xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14 
 XTerm*faceSize: 10
-!XTerm*faceName: Monaco:style=roman:pixelsize=11
-!XTerm*inputMethod: ibus
 XTerm*metaSendsEscape: true
 
-Emacs.FontBackend: xft
-!Emacs.font: Monospace-8
-!Emacs.font: Bitstream Vera Sans Mono-8
-!Emacs.font: Terminus-9
-!Emacs.menuBar: off
-!Emacs.toolBar: off
-!Emacs.verticalScrollBars: off
+!Emacs.FontBackend: xft

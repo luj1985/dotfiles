@@ -12,6 +12,6 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
 fcitx 2> ${HOME}/logs/fcitx.stderr.log &
-compton --backend glx --config ~/.compton.conf &
+compton -b --config ~/.compton.conf &
 
 exec i3
