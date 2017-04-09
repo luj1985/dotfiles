@@ -13,23 +13,50 @@ n 1 <ENTER> +100M EF00
 # root partition
 n 2 <ENTER> <ENTER> <ENTER>
 w
+
+
+gdisk /dev/sda
+# swap
+n 1 <ENTER> +64G 8200
+# rest
+n 2 <ENTER> <ENTER> <ENTER>
+w
 ```
+
 
 # Encryption
 ```{bash id:"j19gwhhp"}
 # dm-crypt
 cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 1000 --use-random --verify-passphrase luksFormat /dev/nvme0n1p2
 
+cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 1000 --use-random --verify-passphrase luksFormat /dev/sda2
+
+cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 1000 --use-random --verify-passphrase luksFormat /dev/sdb
+
+cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 1000 --use-random --verify-passphrase luksFormat /dev/sdc
+
 # dm key files
 dd if=/dev/random of=/tmp/luks-key bs=512 count=4
+
 cryptsetup luksAddKey /dev/nvme0n1p2 /tmp/luks-key
+cryptsetup luksAddKey /dev/sda2 /tmp/luks-key
+cryptsetup luksAddKey /dev/sdb /tmp/luks-key
+cryptsetup luksAddKey /dev/sdc /tmp/luks-key
+
 cryptsetup luksOpen /dev/nvme0n1p2 crypt -d /tmp/luks-key
+cryptsetup luksOpen /dev/sda2 storage0 -d /tmp/luks-key
+cryptsetup luksOpen /dev/sdb storage1 -d /tmp/luks-key
+cryptsetup luksOpen /dev/sdc storage2 -d /tmp/luks-key
 ```
 
 # File system
 ```{bash id:"j19gwmd6"}
 mkfs.vfat -F32 -n "EFI" /dev/nvme0n1p1
 mkfs.btrfs -KL "System" /dev/mapper/crypt
+mkfs.btrfs -d raid0 -L "Storage" /dev/mapper/storage0 /dev/mapper/storage1 /dev/mapper/storage2
+
+mkswap /dev/sda1
+swapon /dev/sda1
 
 # Mount and the BTRFS volume && Create subvolumes
 mkdir -p /mnt/arch
@@ -44,21 +71,31 @@ btrfs subvolume create var
 
 mkdir -p /mnt/arch-active && cd /mnt/arch-active
 mount -o ssd,discard,noatime,compress=lzo,nodev,subvol=__active/ROOT /dev/mapper/crypt /mnt/arch-active
-mkdir -p /mnt/arch-active/{home,var,boot}
+mkdir -p /mnt/arch-active/{home,var,boot,storage}
 
 mount /dev/nvme0n1p1 /mnt/arch-active/boot
 mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,subvol=__active/home /dev/mapper/crypt /mnt/arch-active/home
 mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,subvol=__active/var /dev/mapper/crypt /mnt/arch-active/var
+
+# https://bugs.freedesktop.org/show_bug.cgi?id=88483#c1, btrfs multi-device cannot mount at boot time
+# mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,noexec /dev/mapper/storage0 /mnt/arch-active/storage
+
 df -hT
 ```
+
 
 # Install Arch base system
 ```{bash id:"j19gwt67"}
 vim /etc/pacman.d/mirrorlist # choose fastest mirrors
 pacstrap /mnt/arch-active base base-devel cryptsetup btrfs-progs vim
 
-mv /tmp/luks-key /mnt/arch-active/root/
-chmod 000 /mnt/arch-active/root/luks-key
+mv /tmp/luks-key /mnt/arch-active/etc/
+chmod 000 /mnt/arch-active/etc/luks-key
+
+# crypttab
+storage0 /dev/sda2 /etc/luks-key
+storage1 /dev/sdb  /etc/luks-key
+storage2 /dev/sdc  /etc/luks-key
 
 # fstab
 genfstab -pU /mnt/arch-active >> /mnt/arch-active/etc/fstab
@@ -133,14 +170,10 @@ timedatectl set-ntp true
 Storage=volatile
 ```
 
-# configure system
+# Configure system
 ```{bash id:"j19gx3yh"}
 useradd -m -d /home/lujun -s /bin/bash lujun
 gpasswd -a lujun wheel
-
-pacman -S openssh
-systemctl enable sshd
-systemctl start sshd
 
 cat << EOF >> /etc/pacman.conf
 [archlinuxcn]
@@ -163,14 +196,20 @@ systemctl start snapper-timeline.timer
 
 # Xorg
 ```{bash id:"j19gxctp"}
-yaourt -S xorg-server xorg-xinit nvidia i3-wm i3statu google-chrome xterm rofi
-yaourt -S font-bitstream-speedo ttf-bitstream-vera ttf-dejavu ttf-hack
-yaourt -S alsa-utils
-
+yaourt -S xorg-server xorg-xinit xorg-utils nvidia i3 google-chrome xterm rofi
+yaourt -S font-bitstream-speedo ttf-bitstream-vera ttf-dejavu ttf-hack ttf-font-awesome
 yaourt -S wqy-microhei wqy-zenhei adobe-source-han-sans-cn-fonts noto-fonts noto-fonts-cjk noto-fonts-emoji
 yaourt -S fcitx fcitx-im fcitx-sogoupinyin
 
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d/
+```
 
+# Utilities
+```{bash id:"j1a3wkzt"}
+yaourt -S alsa-utils
 yaourt -S htop lsof strace
+
+pacman -S openssh
+systemctl enable sshd
+systemctl start sshd
 ```
