@@ -14,5 +14,5 @@ export XMODIFIERS=@im=fcitx
 fcitx 2> ${HOME}/logs/fcitx.stderr.log &
 compton -b --config ~/.compton.conf &
 
-exec xautolock -time 5 -locker "~/dotfiles/lock.sh" &
+exec xautolock -time 30 -locker "~/dotfiles/lock.sh" &
 exec i3

@@ -77,8 +77,6 @@ mount /dev/nvme0n1p1 /mnt/arch-active/boot
 mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,subvol=__active/home /dev/mapper/crypt /mnt/arch-active/home
 mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,subvol=__active/var /dev/mapper/crypt /mnt/arch-active/var
 
-# https://bugs.freedesktop.org/show_bug.cgi?id=88483#c1, btrfs multi-device cannot mount at boot time
-# mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,noexec /dev/mapper/storage0 /mnt/arch-active/storage
 
 df -hT
 ```
@@ -92,10 +90,12 @@ pacstrap /mnt/arch-active base base-devel cryptsetup btrfs-progs vim
 mv /tmp/luks-key /mnt/arch-active/etc/
 chmod 000 /mnt/arch-active/etc/luks-key
 
+# https://bugs.freedesktop.org/show_bug.cgi?id=88483#c1, btrfs multi-device cannot mount at boot time
+# mount -o ssd,discard,noatime,compress=lzo,nosuid,nodev,noexec /dev/mapper/storage0 /storage
 # crypttab
-storage0 /dev/sda2 /etc/luks-key
-storage1 /dev/sdb  /etc/luks-key
-storage2 /dev/sdc  /etc/luks-key
+#storage0 /dev/sda2 /etc/luks-key
+#storage1 /dev/sdb  /etc/luks-key
+#storage2 /dev/sdc  /etc/luks-key
 
 # fstab
 genfstab -pU /mnt/arch-active >> /mnt/arch-active/etc/fstab
