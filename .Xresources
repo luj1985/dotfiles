@@ -7,7 +7,7 @@ Xft.autohint: false
 Xft.hintstyle: hintslight
 ! Xft.lcdfilter: lcddefault
 
-XTerm.VT100.geometry:   200x60
+XTerm.VT100.geometry: 200x60
 XTerm*background: #2e3436
 XTerm*foreground: #d3d7cf
 XTerm*color0: #2e3436
