@@ -15,6 +15,7 @@ alias npm="npm --registry=https://registry.npm.taobao.org \
   --disturl=https://npm.taobao.org/dist \
   --userconfig=$HOME/.npmrc"
 
+alias depclean='sudo pacman -Rsn $(pacman -Qdtq)'
 alias open='xdg-open'
 alias rm='echo "Use trash instead"; false'
 
