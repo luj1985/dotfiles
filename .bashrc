@@ -27,9 +27,7 @@ export VISUAL=$EDITOR
 export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:$PATH
 export PATH=$PATH:/opt/anaconda/bin
 
-
-_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="$PATH:$HOME/.rvm/bin"
 
+_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
