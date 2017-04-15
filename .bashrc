@@ -18,6 +18,7 @@ alias npm="npm --registry=https://registry.npm.taobao.org \
 alias depclean='sudo pacman -Rsn $(pacman -Qdtq)'
 alias open='xdg-open'
 alias rm='echo "Use trash instead"; false'
+alias steam-wine='wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe -no-cef-sandbox'
 
 PS1='[\u@\h \W]\$ '
 
@@ -25,6 +26,7 @@ export EDITOR="vim"
 export VISUAL=$EDITOR
 export PATH=${HOME}/bin:${HOME}/.npm-packages/bin:$PATH
 export PATH=$PATH:/opt/anaconda/bin
+
 
 _byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
 

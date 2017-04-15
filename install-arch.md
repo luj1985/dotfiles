@@ -114,8 +114,9 @@ echo vulture >> /etc/hostname
 locale-gen
 
 # kernel
-# add "encrypt" into HOOS
-vi /etc/mkinitcpio.conf
+# add "encrypt resume" into HOOS
+vim /etc/mkinitcpio.conf
+HOOKS="base udev resume autodetect modconf block filesystems keyboard encrypt fsck"
 
 mkinitcpio -p linux
 bootctl --path=/boot install
@@ -132,7 +133,7 @@ cat << EOF > /boot/loader/entries/arch.conf
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
-options cryptdevice=UUID=b5178df0-a889-4618-bfd4-a55d3c8793d3:crypt root=/dev/mapper/crypt rootflags=subvol=__active/ROOT rw
+options cryptdevice=UUID=b5178df0-a889-4618-bfd4-a55d3c8793d3:crypt root=/dev/mapper/crypt rootflags=subvol=__active/ROOT resume=UUID=353442e1-fa87-4b8c-946f-78e8f6baa9ca rw
 EOF
 
 passwd
