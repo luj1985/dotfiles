@@ -173,6 +173,16 @@ yaourt -S lm_sensors compton byobu trash-cli alsa-utils htop lsof strace dmenu n
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d/
 ```
 
+# Auto login
+```
+systemctl edit getty@tty1
+
+
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/agetty --autologin username --noclear %I $TERM
+```
+
 
 # Utilities
 ```{bash id:"j1a3wkzt"}

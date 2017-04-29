@@ -1,11 +1,12 @@
 ! Xft settings --------
-Xft.dpi: 96
+Xft.dpi: 108
+Xft.autohint: false
+Xft.lcdfilter: lcddefault
 Xft.antialias: true
 Xft.hinting: true
+!Xft.hintstyle: hintslight
+Xft.hintstyle: hintfull
 Xft.rgba: rgb
-Xft.autohint: false
-Xft.hintstyle: hintslight
-! Xft.lcdfilter: lcddefault
 
 XTerm.VT100.geometry: 200x60
 XTerm*background: #2e3436
@@ -32,4 +33,3 @@ xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14
 XTerm*faceSize: 10
 XTerm*metaSendsEscape: true
 
-!Emacs.FontBackend: xft
