@@ -166,7 +166,7 @@ pacman -S yaourt
 yaourt -S xorg-server xorg-xinit xorg-utils nvidia i3 google-chrome xterm rofi \
   font-bitstream-speedo ttf-bitstream-vera ttf-dejavu ttf-hack ttf-font-awesome \
   wqy-microhei wqy-zenhei adobe-source-han-sans-cn-fonts noto-fonts noto-fonts-cjk noto-fonts-emoji \
-  fcitx fcitx-im fcitx-sogoupinyin xtitle
+  fcitx fcitx-im fcitx-sogoupinyin fcitx-configtool xtitle
 
 yaourt -S lm_sensors compton byobu trash-cli alsa-utils htop lsof strace dmenu nautilus
 

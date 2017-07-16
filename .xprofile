@@ -1,0 +1,10 @@
+xrdb -merge .Xresources
+
+compton -b --config ~/.comptonrc
+
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+
+fcitx 2> ${HOME}/logs/fcitx.stderr.log &
+
