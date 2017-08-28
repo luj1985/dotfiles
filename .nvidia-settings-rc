@@ -2,7 +2,7 @@
 # /home/lujun/.nvidia-settings-rc
 #
 # Configuration file for nvidia-settings - the NVIDIA X Server Settings utility
-# Generated on Fri Apr 28 21:44:55 2017
+# Generated on Thu Aug 10 21:01:20 2017
 #
 
 # ConfigProperties:
@@ -13,21 +13,21 @@ SliderTextEntries = Yes
 IncludeDisplayNameInConfigFile = No
 ShowQuitDialog = Yes
 UpdateRulesOnProfileNameChange = Yes
-Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
-Timer = Thermal_Monitor_(GPU_0),Yes,1000
 Timer = Memory_Used_(GPU_0),Yes,3000
+Timer = Thermal_Monitor_(GPU_0),Yes,1000
+Timer = PowerMizer_Monitor_(GPU_0),Yes,1000
 
 # Attributes:
 
 0/SyncToVBlank=1
-0/LogAniso=2
+0/LogAniso=4
 0/FSAA=0
 0/TextureClamping=1
 0/FXAA=1
 0/AllowFlipping=1
 0/FSAAAppControlled=0
 0/LogAnisoAppControlled=0
-0/OpenGLImageSettings=1
+0/OpenGLImageSettings=0
 0/FSAAAppEnhanced=1
 0/XVideoSyncToDisplayID=DP-2
 [DPY:DVI-D-0]/Dithering=0
