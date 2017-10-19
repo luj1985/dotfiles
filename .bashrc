@@ -32,5 +32,6 @@ export PATH=$PATH:/opt/depot_tools
 export PATH="$PATH:$HOME/.rvm/bin"
 
 #source $HOME/.cargo/env
+export GOPATH=$HOME/go
 
 _byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
